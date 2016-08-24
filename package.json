@@ -1,0 +1,16 @@
+{
+	"name": "velocityServer",
+	"version": "1.0.0",
+	"description": "velocity for node engine deployment server",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "蒋良臣 Liangchen.Jiang",
+	"email":"lovejlc2008@163.com",
+	"license": "ISC",
+	"dependencies": {
+		"express": "^4.14.0",
+		"velocityjs": "^0.8.5"
+	}
+}

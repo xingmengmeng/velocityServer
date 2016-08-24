@@ -1,0 +1,32 @@
+{
+	"vmType":{
+		"vm": [
+	        ".vm",
+	        ".html",
+	        ".shtml"
+	    ],
+	    "Css": [".css"],
+	    "js": [".js"],
+	    "gif":[".gif"],
+	    "png":[".png"],
+	    "jpg":[".jpg"],
+	    "jpeg":[".jpeg"]
+	},
+	"contentType":{
+			"vm":"text/html; charset=utf-8",
+			"Css":"text/css; charset=utf-8",
+			"js":"text/javascript; charset=utf-8",
+			"gif":"image/gif",
+			"png":"image/png",
+			"jpg":"image/jpeg",
+			"jpeg":"image/jpeg"
+	},
+	"vm": [
+	    ".vm",
+	    ".html",
+	    ".shtml"
+	],
+	"Css": [".css"],
+	"js": [".js"],
+	"img": [".gif",".jpg",".jpeg",".png"]
+}
