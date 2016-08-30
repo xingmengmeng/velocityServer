@@ -3,10 +3,8 @@ var fs = require('fs');
 var path = require('path');
 var Velocity = require('velocityjs');
 var serveIndex = require('serve-index');
-var app = express();
+var proxy = require('http-proxy-middleware');
 var config = require('./config/default.json');
-app.set('port', process.env.PORT || config.port || 3000);
-
 
 var getExtname = function(filepath){
 	return path.extname(filepath);
@@ -32,7 +30,8 @@ var parseVm = function(req, res, next){
 		template = template.replace("#parse(\""+vm+"\")", replacement);
 	}
 	
-	var context = JSON.parse(fs.readFileSync(config.webapps + path.dirname(req.path) +"/"+ basename +".json",'utf-8'));
+	var jsonPath = path.join(config.webapps, path.dirname(req.path), basename+".json");
+	var context = JSON.parse(fs.readFileSync(jsonPath , 'utf-8'));
 	var html = Velocity.render(template, context);
 	
 	res.set('Content-Type', 'text/html; charset=utf-8');
@@ -41,7 +40,13 @@ var parseVm = function(req, res, next){
 
 
 var start = function(callback){
-	
+	if(!config.webapps){
+		return callback(new Error('Error:找不到项目根目录！'));	
+	};
+	var app = express();
+	//app.use('/api', proxy({target: 'http://www.renruihr.com', changeOrigin: true}))
+	config.proxy && config.proxy.path && app.use(config.proxy.path, proxy({target: config.proxy.target, changeOrigin: true}));
+	app.set('port', process.env.PORT || config.port || 3000);
 	app.use(parseVm);
 	app.use(serveIndex(config.webapps, {icons: true, hidden:true}));
 	app.use(express.static(config.webapps, {index: false, maxAge: 0}));
